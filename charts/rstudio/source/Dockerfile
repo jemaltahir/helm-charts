@@ -22,6 +22,13 @@ RUN echo "------------------------------" && \
     dpkg -s libglpk40 || echo "libglpk40 not found" && \
     echo "------------------------------"
 
+# Fetch and copy the library files if necessary
+RUN echo "------------------------------" && \
+    echo "Fetching the library files..." && \
+    find /lib /usr/lib -name "libglpk*" && \
+    cp /lib/x86_64-linux-gnu/libglpk* /home/rstudio-server/ && \
+    echo "------------------------------"
+
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
     apt-utils \
     libnss-wrapper \
