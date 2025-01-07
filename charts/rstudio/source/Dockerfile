@@ -20,6 +20,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
     libgeos-dev \
     libproj-dev \
     libmysqlclient-dev \
+    libglpk40 \
     strace \
     mlocate \
     nano && \
