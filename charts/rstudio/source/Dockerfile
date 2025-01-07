@@ -7,7 +7,6 @@ ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 RUN /rocker_scripts/install_rstudio.sh
 RUN /rocker_scripts/install_shiny_server.sh
-# Install libglpk40 alone and check if it's installed
 
 # Install libglpk40 alone and check if it's installed
 RUN echo "------------------------------" && \

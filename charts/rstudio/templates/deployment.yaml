@@ -26,7 +26,7 @@ spec:
         - oc wait --for=jsonpath='{.status.phase}'=Complete build -l buildconfig={{ .Values.appName }} --timeout=900s
       containers:
       - name: {{ .Values.appName }}
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         image: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.appName }}:latest
         ports:
         - containerPort: 3838
