@@ -37,7 +37,7 @@ shiny:
     host: example-shiny-host
 
 buildConfig:
-  gitRepoUri: https://github.com/jemaltahir/helm-charts.git 
+  gitRepoUri: https://github.com/jemaltahir/helm-charts.git
   gitBranch: main
   contextDir: charts/rstudio/source
   

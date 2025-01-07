@@ -20,12 +20,17 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
     libgeos-dev \
     libproj-dev \
     libmysqlclient-dev \
-    libglpk40 \
     strace \
     mlocate \
     nano && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Check if libglpk40 is installed and visible
+RUN echo "------------------------------" && \
+    echo "Checking if libglpk40 is installed..." && \
+    ldconfig -p | grep libglpk && \
+    dpkg -s libglpk40 || echo "libglpk40 not found" && \
+    echo "------------------------------"
 # Setup various variables
 ENV TZ="Europe/Helsinki" \
     USERNAME="rstudio-server" \
