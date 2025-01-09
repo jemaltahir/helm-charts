@@ -2,7 +2,6 @@ FROM rocker/r-ver:4.3.2
 
 ENV RSTUDIO_VERSION=2023.09.1+494
 ENV PANDOC_VERSION=default
-
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 
 RUN /rocker_scripts/install_rstudio.sh
@@ -25,8 +24,9 @@ RUN echo "------------------------------" && \
 # Fetch and copy the library files if necessary
 RUN echo "------------------------------" && \
     echo "Fetching the library files..." && \
+    mkdir -p /home/rstudio-server/ && \
     find /lib /usr/lib -name "libglpk*" && \
-    cp /lib/x86_64-linux-gnu/libglpk* /home/rstudio-server/ && \
+    cp $(find /lib /usr/lib -name "libglpk*" | head -1) /home/rstudio-server/ && \
     echo "------------------------------"
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
