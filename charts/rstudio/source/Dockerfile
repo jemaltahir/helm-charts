@@ -7,27 +7,27 @@ ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 RUN /rocker_scripts/install_rstudio.sh
 RUN /rocker_scripts/install_shiny_server.sh
 
-# Install libglpk40 alone and check if it's installed
-RUN echo "------------------------------" && \
-    echo "Installing libglpk40..." && \
-    apt-get update && apt-get install --no-install-recommends -y libglpk40 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "------------------------------"
+# # Install libglpk40 alone and check if it's installed
+# RUN echo "------------------------------" && \
+#     echo "Installing libglpk40..." && \
+#     apt-get update && apt-get install --no-install-recommends -y libglpk40 && \
+#     apt-get clean && rm -rf /var/lib/apt/lists/* && \
+#     echo "------------------------------"
 
-# Check if libglpk40 is installed and visible
-RUN echo "------------------------------" && \
-    echo "Checking if libglpk40 is installed..." && \
-    ldconfig -p | grep libglpk && \
-    dpkg -s libglpk40 || echo "libglpk40 not found" && \
-    echo "------------------------------"
+# # Check if libglpk40 is installed and visible
+# RUN echo "------------------------------" && \
+#     echo "Checking if libglpk40 is installed..." && \
+#     ldconfig -p | grep libglpk && \
+#     dpkg -s libglpk40 || echo "libglpk40 not found" && \
+#     echo "------------------------------"
 
-# Fetch and copy the library files if necessary
-RUN echo "------------------------------" && \
-    echo "Fetching the library files..." && \
-    mkdir -p /home/rstudio-server/ && \
-    find /lib /usr/lib -name "libglpk*" && \
-    cp $(find /lib /usr/lib -name "libglpk*" | head -1) /home/rstudio-server/ && \
-    echo "------------------------------"
+# # Fetch and copy the library files if necessary
+# RUN echo "------------------------------" && \
+#     echo "Fetching the library files..." && \
+#     mkdir -p /home/rstudio-server/ && \
+#     find /lib /usr/lib -name "libglpk*" && \
+#     cp $(find /lib /usr/lib -name "libglpk*" | head -1) /home/rstudio-server/ && \
+#     echo "------------------------------"
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
     apt-utils \
@@ -41,6 +41,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
     libgeos-dev \
     libproj-dev \
     libmysqlclient-dev \
+    libglpk40 \
     strace \
     mlocate \
     nano && \
