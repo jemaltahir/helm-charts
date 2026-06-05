@@ -41,5 +41,6 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
           charts_dir: charts # folder that holds your chart sub-directories
+          skip_existing: true # skip charts that have already been released
           # Optional: set a custom pages branch (default is gh-pages)
           # pages_branch: gh-pages
