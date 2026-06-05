@@ -4,17 +4,12 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "charts/**" # Only trigger when charts/ folder changes
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   release:
-    name: Package & Publish Charts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,23 +19,16 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name  "$GITHUB_ACTOR"
+          git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
         uses: azure/setup-helm@v4
-        with:
-          version: v3.17.3
 
-      #   - Packages all charts under charts/
-      #   - Creates a GitHub Release + tag per chart version
-      #   - Pushes index.yaml to the gh-pages branch
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
-          charts_dir: charts # folder that holds your chart sub-directories
-          skip_existing: true # skip charts that have already been released
-          # Optional: set a custom pages branch (default is gh-pages)
-          # pages_branch: gh-pages
+          charts_dir: charts
+          skip_existing: true
